@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
+
+import 'package:flutter/cupertino.dart';
 
 void main(List<String> args) {
   const app = MyApp();
@@ -12,10 +14,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const CupertinoApp(
         title: "반갑습니다",
-        theme: ThemeData(primarySwatch: Colors.blue),
-        home: const StartPage());
+        theme: CupertinoThemeData(brightness: Brightness.light),
+        home: StartPage());
   }
 }
 
@@ -37,9 +39,9 @@ class StartPage extends StatefulWidget {
 class _StartPage extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("나의 첫 App")),
-      body: const Center(
+    return const CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text("나의 첫 App")),
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -55,8 +57,6 @@ class _StartPage extends State<StartPage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () => {}, child: const Icon(Icons.email)),
     );
   }
 }
