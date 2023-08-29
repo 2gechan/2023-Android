@@ -44,3 +44,13 @@ flutter doctor
 ```bash
 flutter doctor --android-licenses
 ```
+
+## flutter project를 github에서 clone 했을 때
+
+- 프로젝트 코드, 파일에서 import 코드에 오류가 발생한다.
+- github에 프로젝트를 push 하면 필요한 dependencies 도구들이 생략되어 push 된다.
+- clone을 실행한 다음에는 dependencies 들을 다시 다운로드 해주어야 한다.
+
+```bash
+flutter pub get
+```
