@@ -57,17 +57,19 @@ class StartPage extends State<HomePage> {
     Student(stNum: "005", stName: "장보고"),
   ];
 
+  List<Student> filterList = [];
+
   /// 동적으로 변화되는 배열(리스트) 요소들을 화면에 출력하기 위하여
   /// ListView.builder() 함수를 사용하여 각 요소를 디자인한다.
   ListView appBarBody() => ListView.builder(
-        itemCount: studentList.length,
+        itemCount: filterList.length,
         itemBuilder: (context, index) {
           return ListTile(
             title: Material(
               child: InkWell(
                 onTap: () {
                   var snackBar = SnackBar(
-                    content: Text(studentList[index].stName),
+                    content: Text(filterList[index].stName),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
@@ -79,8 +81,8 @@ class StartPage extends State<HomePage> {
                   padding: const EdgeInsets.all(20),
                   child: Row(
                     children: [
-                      Text(studentList[index].stNum),
-                      Text(studentList[index].stName),
+                      Text(filterList[index].stNum),
+                      Text(filterList[index].stName),
                     ],
                   ),
                 ),
@@ -89,6 +91,35 @@ class StartPage extends State<HomePage> {
           );
         },
       );
+
+  void _onChangeHandler(String search) {
+    List<Student> result = [];
+    if (search.isNotEmpty) {
+      result =
+          studentList.where((item) => item.stName.contains(search)).toList();
+    } else {
+      result = studentList;
+    }
+    setState(() {
+      filterList = result;
+    });
+  }
+
+  // state가 최초에 mount 될 때
+  @override
+  void initState() {
+    filterList = studentList;
+    super.initState();
+  }
+
+  // state가 unmount 될 때
+  // 일부 context에 저장된 변수들을 사용 해제 해야할 경우가 있는데
+  // 이 때 여기에서 그러한 코드를 작성한다
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +143,34 @@ class StartPage extends State<HomePage> {
               icon: const Icon(Icons.add_alert_outlined))
         ],
       ),
-      body: appBarBody(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            TextField(
+              onChanged: (value) => _onChangeHandler(value),
+              decoration: const InputDecoration(
+                labelText: "search",
+                labelStyle: TextStyle(
+                  fontSize: 20,
+                ),
+                hintText: "검색어를 입력하세요",
+                hintStyle: TextStyle(color: Colors.blue),
+                suffixIcon: Icon(Icons.search),
+              ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+
+            // ListView를 사용하여 list 보이기
+            // Expanded를 실행하여 Column box에 가득 차게 구현
+            Expanded(
+              child: appBarBody(),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
