@@ -166,7 +166,12 @@ class StartPage extends State<HomePage> {
             // ListView를 사용하여 list 보이기
             // Expanded를 실행하여 Column box에 가득 차게 구현
             Expanded(
-              child: appBarBody(),
+              child: filterList.isNotEmpty
+                  ? appBarBody()
+                  : const Text(
+                      "찾는 값이 없음",
+                      style: TextStyle(fontSize: 25),
+                    ),
             ),
           ],
         ),
