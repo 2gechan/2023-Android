@@ -53,7 +53,7 @@ class TodoService {
       dbFile,
       onCreate: onCreateTable,
       onUpgrade: onUpgradeTable,
-      version: 2,
+      version: 3,
     );
   }
 

@@ -107,7 +107,11 @@ class _StartPage extends State<StartPage> {
                   snapshot: snapshot,
                 );
               } else {
-                return const Center();
+                return const Center(
+                  child: CircularProgressIndicator(
+                    semanticsLabel: "데이터가 없습니다",
+                  ),
+                );
               }
             }),
       ),
@@ -164,7 +168,7 @@ class _StartPage extends State<StartPage> {
             confirmDismiss: (direction) => onConfirmHandler(direction, index),
 
             /// confirmDismiss에서 true가 return 되었을 때 할일
-            onDismissed: (direction) {
+            onDismissed: (direction) async {
               if (direction == DismissDirection.startToEnd) {
                 setState(() {
                   todoList[index].complete = !todoList[index].complete;
@@ -175,8 +179,10 @@ class _StartPage extends State<StartPage> {
                     content: Text("${todoList[index].content}를 삭제하였습니다."),
                   ),
                 );
+
+                await TodoService().delete(todoList[index].id ?? 0);
                 setState(() {
-                  todoList.removeAt(index);
+                  // todoList.removeAt(index);
                 });
               }
             },
