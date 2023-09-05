@@ -35,6 +35,17 @@ class _UserInputState extends State<UserInput> {
 
     super.initState();
   }
+
+// state 에서 사용하던 Controller를 메모리에서 제거하기
+// 이 코드를 작성하지 않으면 메모리 누수 발생 가능성이 있다.
+  @override
+  void dispose() {
+    userNameInputController.dispose();
+    passwordInputController.dispose();
+    nicknameInputController.dispose();
+
+    super.dispose();
+  }
   // var userDto =
   //     User(username: "", password: "", nickname: "", email: "", tel: "");
 
