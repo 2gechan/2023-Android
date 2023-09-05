@@ -2,6 +2,9 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:todolist/models/todo.dart';
 
+// ignore: constant_identifier_names
+const String TBL_TODO = "tbl_todoList";
+
 /// 안드로이드, 아이폰 에는 공통으로  sqflite 라는 RDBMS가 내장되어있다.
 /// 규모는 매우 작지만 phone에서 DB를 SQL을 사용하여 관리할 수 있또록
 /// 여러가지 명령어를 제공한다.
@@ -11,11 +14,10 @@ class TodoService {
   /// late 키워드는 아직 변수를 초기화 시키지 않았지만 이 값은 null이 아니라는 선언
   /// 즉, 곧 이 변수는 누군가가 초기화(값 부여)를 할 것이다.
   late Database _database;
-  final String TBL_TODO = "tbl_todoList";
 
   final String createTable = """
-  CREATE TABLE tbl_todoList (
-    t_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  CREATE TABLE $TBL_TODO (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     sdate TEXT,
     stime TEXT,
     content TEXT,
@@ -69,9 +71,19 @@ class TodoService {
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
+  /// where : "id = ${id}" , id = "1 = 1 OR "
+  /// SQL을 사용할 때 문자열 연결 방식으로 where 절을 사용하면 절대 안된다.
+  /// SQL Injection 공격에 바로 노출될 수 있다.
+  /// 만약 이처럼 코드를 작성했을 때 where : "id = ${id}" ,
+  /// id 변수에 "1 = 1 OR " 와 같은 코드를 전달하면 Table의 모든 데이터가
+  /// 한꺼번에 삭제되는 결과가 발생한다.
   Future<int> delete(int id) async {
     final db = await database;
-    return await db.delete(TBL_TODO, where: "id = ?", whereArgs: [id]);
+    return await db.delete(
+      TBL_TODO,
+      where: "id = ?",
+      whereArgs: [id],
+    );
   }
 
   Future<int> update(Todo todo) async {
