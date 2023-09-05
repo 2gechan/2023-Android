@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:navigator/page/email_page.dart';
-import 'package:navigator/page/home_page.dart';
-import 'package:navigator/page/my_page.dart';
+import '/page/home_page.dart';
+import '/page/my_page.dart';
 
 Widget mainDrawer(BuildContext context) => Drawer(
       child: ListView(
@@ -32,7 +31,6 @@ Widget mainDrawer(BuildContext context) => Drawer(
             ),
             onTap: () {
               debugPrint("Home 메뉴가 클릭됨");
-              const HomePage();
 
               /// 스마트 기기에서 현재 화면을 다른 화면으로 전환하기
               /// web, pc 어플리케이션에서는 단순히 화면을 전환하는데
@@ -40,13 +38,15 @@ Widget mainDrawer(BuildContext context) => Drawer(
               /// 스마트 기기에서는 화면 하나 하나가 context 이다.
               /// 화면을 전환 시킬 때도 context를 잘 관리해야한다.
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const HomePage()),
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ),
               );
             },
           ),
           const Divider(
             height: 0.2,
-            color: Colors.black,
+            color: Colors.blueGrey,
           ),
           ListTile(
             title: const Text(
@@ -75,13 +75,16 @@ Widget mainDrawer(BuildContext context) => Drawer(
             onTap: () {
               Navigator.of(context).pushNamed(
                 "/email",
-                arguments: {"email": "github.com/2gechan"},
+                arguments: {
+                  "email": "github.com/2gechan",
+                  "password": "12345",
+                },
               );
             },
           ),
           const Divider(
             height: 0.2,
-            color: Colors.black,
+            color: Colors.blueGrey,
           ),
         ],
       ),

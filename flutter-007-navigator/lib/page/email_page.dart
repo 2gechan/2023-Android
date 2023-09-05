@@ -18,7 +18,21 @@ class _EMailPage extends State<EMailPage> {
       appBar: AppBar(
         title: const Text("E-Mail Page"),
       ),
-      body: const Center(child: Column(children: [])),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("여기는 Email Page"),
+            Text("Email ${args["email"]}"),
+            Text("Password ${args["password"]}"),
+            ElevatedButton(
+              // pushNamed를 사용하려면 main에서 routes를 사용해야한다.
+              onPressed: () => Navigator.of(context).pushNamed("/mypage"),
+              child: const Text("My Page"),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

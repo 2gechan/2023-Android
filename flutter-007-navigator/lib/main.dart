@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:navigator/page/email_page.dart';
-import 'package:navigator/page/home_page.dart';
-import 'package:navigator/page/my_page.dart';
+import '/page/email_page.dart';
+import '/page/home_page.dart';
+import '/page/my_page.dart';
 import '/page/main_drawer.dart';
 
 void main() {
