@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase/page/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -49,12 +51,24 @@ class _MyPageState extends State<MyPage> {
                 children: [
                   const Padding(padding: EdgeInsets.fromLTRB(30, 0, 30, 20)),
                   ElevatedButton(
-                      onPressed: () => Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
+
+                      /// Navigator.push() : 현재 화면 위에 새로운 화면을 올리기
+                      /// 새로 push 된 화면에서 pop을 실행하면 현재 화면이 나타난다.
+                      ///
+                      /// Navigator.pushReplacement : 현재 화면 pop 한 후에 새로운 화면을 push
+                      /// 새로 push 된 화면에서 pop을 실행하면 이전 화면이 나타난다.
+                      onPressed: () async {
+                        var result = await Navigator.of(context).push(
+                          MaterialPageRoute(
                             builder: (context) => LoginPage(
                               updateAuthUser: widget.updateAuthUser,
                             ),
-                          )),
+                          ),
+                        );
+                        if (result) {
+                          Navigator.pop(context);
+                        }
+                      },
                       child: const Text("로그인"))
                 ],
               ),
