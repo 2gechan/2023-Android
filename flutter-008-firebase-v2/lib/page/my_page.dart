@@ -49,8 +49,8 @@ class _MyPageState extends State<MyPage> {
                 children: [
                   const Padding(padding: EdgeInsets.fromLTRB(30, 0, 30, 20)),
                   ElevatedButton(
-                      onPressed: () =>
-                          Navigator.of(context).push(MaterialPageRoute(
+                      onPressed: () => Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
                             builder: (context) => LoginPage(
                               updateAuthUser: widget.updateAuthUser,
                             ),

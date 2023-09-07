@@ -104,13 +104,13 @@ class _LoginPageState extends State<LoginPage> {
         ),
         onPressed: () async {
           _formKey.currentState?.validate();
+          Navigator.pop(context);
           var result = await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: _emailValue,
             password: _passwordValue,
           );
           widget.updateAuthUser(result.user);
-          setState(() {});
-          Navigator.pop(context);
+          // setState(() {});
         },
         child: const SizedBox(
             width: double.infinity,
