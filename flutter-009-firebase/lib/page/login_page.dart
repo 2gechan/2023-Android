@@ -97,15 +97,42 @@ class _LoginPageState extends State<LoginPage> {
                             padding: const EdgeInsets.all(20),
                             backgroundColor: Colors.green),
                         onPressed: () async {
-                          final GoogleSignInAccount? gooleUser =
-                              await GoogleSignIn().signIn();
+                          try {
+                            final GoogleSignInAccount? googleUser =
+                                await GoogleSignIn().signIn();
 
-                          final GoogleSignInAuthentication? googleAuth =
-                              await gooleUser?.authentication;
+                            final GoogleSignInAuthentication? googleAuth =
+                                await googleUser?.authentication;
 
-                          GoogleAuthProvider.credential(
-                              accessToken: googleAuth?.accessToken,
-                              idToken: googleAuth?.idToken);
+                            if (googleUser == null || googleAuth == null) {
+                              if (!mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("구글 Login 실패"),
+                                ),
+                              );
+                            } else {
+                              final credential = GoogleAuthProvider.credential(
+                                  accessToken: googleAuth.accessToken,
+                                  idToken: googleAuth.idToken);
+                              // google에게 로그인 요청
+
+                              // google이 보내준 인증정보를 사용하여
+                              // firebase에 로그인 하기
+                              // oAuth2 방식의 로그인
+                              final userCredential = await FirebaseAuth.instance
+                                  .signInWithCredential(credential);
+
+                              await widget.updateAuthUser(userCredential.user);
+
+                              if (!mounted) return;
+                              Navigator.of(context).pop();
+                            }
+                          } catch (e) {
+                            if (!mounted) return;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(e.toString())));
+                          }
                         },
                         child: const SizedBox(
                           width: double.infinity,
