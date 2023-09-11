@@ -1,16 +1,40 @@
-# movie
+# Naver OpenAPI를 활용한 영화정보 어플
 
-A new Flutter project.
+- OpenAPI를 사용하기 위한 Dependency 도구 설치
 
-## Getting Started
+```bash
+flutter pub add http flutter_html
+flutter pub add http
+flutter pub add flutter_html
+```
 
-This project is a starting point for a Flutter application.
+## 프로젝트 패키지 이름 변경하기
 
-A few resources to get you started if this is your first Flutter project:
+- 프로젝트를 생성할 때 기본 패키지를 잘 만들어야 한다. 패키지를 잘못 만들면, google play store, App Store에 어플을 배포할 수 없다. 패키지는 기존의 다른 어플과 완전히 다른 값으로 설정해야 한다.
+- 패키지는 회사의 인터넷 홈페이지 주소와 연동하여 설정한다.
+- `http://www.callor.com`이라는 홈페이지가 있으면 `com.callor.어플이름` 형식으로 사용한다.
+- 프로젝트를 만들 당시에 패키지를 잘못 지정하거나, 지정하지 않았을 경우 개발도중에 패키지명을 변경해야할 필요가 있다. 이때 사용하는 도구가 있다.
+- 패키지명 변경 도구 : `flutter pub add change_app_package_name`
+- 패키지명 변경 : `flutter pub run change_app_package_name:main com.callor.movie`
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## OpenAPI를 사용하기 위한 Android 설정 변경
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- `\android\src\main\kotlin` 폴더의 `MainActivity.kt` 파일에서 패키지명이 올바르게 설정되어 있는지 확인
+- `\android\src\main\AndroidManiFast.xml` 파일을 열어서 패키지 명이 잘 설정되었는지 확인
+- `AndroidManifast.xml` 파일에서 다음 항목을 찾는다.
+- `manifest`와 `application` 사이에 다음 항목 추가
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <queries>
+    <package android:name = "com.gechan.movie" />
+    </queries>
+
+    <application>
+    ...
+    </application>
+
+```
+
+- 어플에서 인터넷을 통하여 외부 API를 사용하기 위한 권한을 부여한다.

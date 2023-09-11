@@ -33,3 +33,6 @@ node_modules/
 
 # Android Profiling
 *.hprof
+
+# naver service
+naver_open_api.*
