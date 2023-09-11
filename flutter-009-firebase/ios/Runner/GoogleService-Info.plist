@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBnWcBIH6VAhuJnjEnGC--tqO4MXIP4xgo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>705866280989</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.gechan.firebase</string>
+	<key>PROJECT_ID</key>
+	<string>flutter-v3-ae213</string>
+	<key>STORAGE_BUCKET</key>
+	<string>flutter-v3-ae213.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:705866280989:ios:6487164e0b45a144fcd6f4</string>
+</dict>
+</plist>
