@@ -18,6 +18,11 @@ class TimerViewModel extends ChangeNotifier {
 // async 패키지에 포함된 객체
   late Timer _timer;
 
+  void setTimer(timer) {
+    timerDto.timer = timer;
+    notifyListeners();
+  }
+
   void onPressed() {
     timerDto.timerRun = !timerDto.timerRun;
 

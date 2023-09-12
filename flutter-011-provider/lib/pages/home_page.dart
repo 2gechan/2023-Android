@@ -29,21 +29,56 @@ class HomePage extends StatelessWidget {
     );
 
     return Scaffold(
+      // 위젯의 배경색상을 투명하게 만들어서 이미지를 보이게 해줌
+      backgroundColor: Colors.transparent,
       body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            strTimer,
+        child: Stack(
+          // mainAxisAlignment: MainAxisAlignment.center,
+
+          children: [
+            Text(
+              strTimer,
+              style: TextStyle(
+                  fontSize: 80,
+                  fontWeight: FontWeight.w900,
+                  foreground: Paint()
+                    ..style = PaintingStyle.stroke
+                    ..strokeWidth = 5
+                    ..color = Colors.blue),
+            ),
+            Text(
+              strTimer,
+              style: const TextStyle(
+                fontSize: 80,
+                fontWeight: FontWeight.w900,
+                color: Colors.amber,
+              ),
+            ),
+            // IconButton(
+            //   onPressed: onPressed,
+            //   icon: timerRun
+            //       ? const Icon(Icons.stop_circle)
+            //       : const Icon(Icons.play_circle_fill),
+            // )
+          ],
+        ),
+      ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: SizedBox(
+        width: 100,
+        height: 100,
+        child: FloatingActionButton(
+          onPressed: onPressed,
+          backgroundColor: Colors.white38,
+          isExtended: true,
+          child: Icon(
+            timerRun ? Icons.pause : Icons.play_arrow_rounded,
+            size: 60,
+            color: Colors.black,
           ),
-          IconButton(
-            onPressed: onPressed,
-            icon: timerRun
-                ? const Icon(Icons.stop_circle)
-                : const Icon(Icons.play_circle_fill),
-          )
-        ],
-      )),
+        ),
+      ),
     );
   }
 }
